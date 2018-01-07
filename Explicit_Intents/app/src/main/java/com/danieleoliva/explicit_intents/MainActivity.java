@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     EditText etName;
     Button btnActivity2, btnActivity3;
     TextView tvMessage;
+    final int ACTIVITY3 = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(MainActivity.this, com.danieleoliva.explicit_intents.Activity3.class);
+                startActivityForResult(intent, ACTIVITY3);
+
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String surname;
+        String name;
+
+        if(requestCode == ACTIVITY3 && resultCode == RESULT_OK) {
+            surname = data.getStringExtra("surname");
+            name = etName.getText().toString().trim();
+
+            tvMessage.setText(name + " " + surname);
+        }
+        else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "The User did not type anything!", Toast.LENGTH_SHORT.show());
+        }
     }
 }
