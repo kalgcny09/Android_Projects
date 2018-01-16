@@ -34,7 +34,14 @@ public class ListFrag extends ListFragment {
         setListAdapter(new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.pieces)));
 
-        chessPieceListener.onChessPieceSelected(0);
+        //phone in landscape
+
+        if (this.getActivity().findViewById(R.id.layout_default) == null) {
+
+            chessPieceListener.onChessPieceSelected(0);
+        }
+
+
 
     }
 
